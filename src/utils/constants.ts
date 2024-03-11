@@ -1,0 +1,1 @@
+export const COVER_DELAY = 3

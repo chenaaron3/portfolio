@@ -1,12 +1,21 @@
-import { FC, useState } from "react";
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import { type FC, useState, useEffect, useCallback, useRef } from "react";
+import {
+  AnimatePresence,
+  motion,
+  type Variants,
+  useScroll,
+  useAnimationControls,
+  useMotionValueEvent,
+} from "framer-motion";
+import { COVER_DELAY } from "~/utils/constants";
+import { useScrollStore } from "~/store";
 
 const listVariants: Variants = {
   visible: {
     top: 0,
     transition: {
       staggerChildren: 0.15,
-      delayChildren: 2.5,
+      delayChildren: COVER_DELAY,
     },
   },
   hidden: {},
@@ -23,9 +32,63 @@ const itemVariants: Variants = {
   },
 };
 
+const logoVariants: Variants = {
+  visible: {
+    opacity: [0, 0.5, 1],
+    scale: [0.5, 0.75, 0.5],
+    transition: {
+      duration: 0.5,
+      delay: COVER_DELAY,
+    },
+  },
+  hidden: {
+    opacity: 0,
+    scale: 0.125,
+  },
+  hover: {
+    scale: 0.6,
+    rotate: -2,
+    cursor: "pointer",
+  },
+};
+
+const containerVariants: Variants = {
+  scrolled: {
+    width: "90vw",
+    margin: "auto",
+    top: "3vh",
+    borderRadius: "15px",
+    height: "7vh"
+  },
+  initial: {
+    width: "100vw",
+    top: 0,
+    height: "10vh"
+  },
+};
+
 export default function Navbar() {
+  const controls = useAnimationControls();
+  const { scroll } = useScrollStore();
+
+  useEffect(() => {
+    if (scroll > 0) {
+      void controls.start("scrolled");
+    } else {
+      void controls.start("initial");
+    }
+  }, [scroll])
+
   return (
-    <div className="sticky top-0 flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg">
+    <motion.div
+      className="sticky top-0 z-10 flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
+      variants={containerVariants}
+      animate={controls}
+      transition={{
+        duration: .25,
+      }}
+      layout
+    >
       <motion.svg
         width="200"
         height="100"
@@ -34,10 +97,8 @@ export default function Navbar() {
         className="relative scale-50"
         initial="hidden"
         animate="visible"
-        variants={itemVariants}
-        transition={{
-          delay: 2.5,
-        }}
+        // whileHover="hover"
+        variants={logoVariants}
       >
         <g stroke="#000" fill="none">
           <motion.path
@@ -62,7 +123,7 @@ export default function Navbar() {
         animate="visible"
         variants={listVariants}
         transition={{
-          delay: 2.5,
+          delay: COVER_DELAY,
         }}
       >
         <NavItem name="About" />
@@ -71,7 +132,7 @@ export default function Navbar() {
         <NavItem name="Projects" />
         <NavItem name="Contact" />
       </motion.ol>
-    </div>
+    </motion.div>
   );
 }
 
