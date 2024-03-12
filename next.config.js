@@ -8,7 +8,7 @@ await import("./src/env.js");
 const config = {
   images: {unoptimized: true},
   basePath: "/portfolio",
-  // output: "export",
+  output: "export",
   reactStrictMode: true,
 
   /**
