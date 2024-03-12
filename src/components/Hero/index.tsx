@@ -50,7 +50,7 @@ export default function Hero() {
           className="relative mt-3 text-center text-xl text-[var(--text-color)]"
           variants={variants}
         >
-          As a seasoned software engineer, I materialize ideas into outstanding
+          As a software engineer, I materialize ideas into outstanding
           websites. <br /> My current focus is developing malware detection
           software for Rubrik.
         </motion.div>
