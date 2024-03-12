@@ -56,9 +56,10 @@ const containerVariants: Variants = {
   scrolled: {
     width: "90vw",
     margin: "auto",
-    top: "3vh",
+    top: "2vh",
     borderRadius: "15px",
-    height: "7vh"
+    height: "7vh",
+    zIndex: 50,
   },
   initial: {
     width: "100vw",
@@ -77,11 +78,11 @@ export default function Navbar() {
     } else {
       void controls.start("initial");
     }
-  }, [scroll])
+  }, [controls, scroll])
 
   return (
     <motion.div
-      className="sticky top-0 z-10 flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
+      className="sticky top-0 flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
       variants={containerVariants}
       animate={controls}
       transition={{

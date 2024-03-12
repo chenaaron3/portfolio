@@ -1,5 +1,13 @@
-import { AnimatePresence, motion, type Variants } from "framer-motion";
+import {
+  AnimatePresence,
+  motion,
+  useMotionValueEvent,
+  useScroll,
+  type Variants,
+} from "framer-motion";
 import { COVER_DELAY } from "~/utils/constants";
+import { Key } from "./Key";
+import { useRef } from "react";
 
 const variants: Variants = {
   hidden: {
@@ -16,9 +24,9 @@ const variants: Variants = {
 
 export default function Hero() {
   return (
-    <div className="mt-[10vh] h-[200vh] w-screen bg-[var(--bg-color)] ">
+    <div className="relative mt-[15vh] h-[200vh] w-screen bg-[var(--bg-color)]">
       <motion.div
-        className="flex flex-col items-center gap-5"
+        className="relative flex flex-col items-center gap-5"
         initial="hidden"
         animate="visible"
         variants={variants}
@@ -50,11 +58,31 @@ export default function Hero() {
           className="relative mt-3 text-center text-xl text-[var(--text-color)]"
           variants={variants}
         >
-          As a software engineer, I materialize ideas into outstanding
-          websites. <br /> My current focus is developing malware detection
-          software for Rubrik.
+          As a software engineer, I materialize ideas into outstanding websites.{" "}
+          <br /> My current focus is developing malware detection software for
+          Rubrik.
         </motion.div>
       </motion.div>
+
+      {/* Keyboard */}
+      <div className="m-auto mt-24 flex h-1/2 w-1/6 flex-col gap-5 rounded-3xl bg-[var(--sub-alt-color)] pt-12">
+        <div className="flex justify-center gap-3">
+          <Key character={"S"} />
+          <Key character={"E"} />
+          <Key character={"E"} />
+        </div>
+        <div className="flex justify-center gap-3">
+          <Key character={"M"} />
+          <Key character={"O"} />
+          <Key character={"R"} />
+          <Key character={"E"} />
+        </div>
+        <div className="flex justify-center gap-3 ">
+          <span className="mt-3 animate-bounce hover:mt-0 hover:animate-none">
+            <Key character={"↓"} />
+          </span>
+        </div>
+      </div>
     </div>
   );
 }

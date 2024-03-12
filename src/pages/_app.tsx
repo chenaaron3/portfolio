@@ -1,16 +1,16 @@
 import { type AppType } from "next/app";
-import { Inter } from "next/font/google";
+import { Montserrat } from "next/font/google";
 
 import "~/styles/globals.css";
 
-const inter = Inter({
+const font = Montserrat({
   subsets: ["latin"],
   variable: "--font-sans",
 });
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <main className={`font-sans ${inter.variable}`}>
+    <main className={`font-sans ${font.variable}`}>
       <Component {...pageProps} />
     </main>
   );
