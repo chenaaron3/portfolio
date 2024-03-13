@@ -55,7 +55,7 @@ const logoVariants: Variants = {
 const containerVariants: Variants = {
   scrolled: {
     width: "90vw",
-    margin: "auto",
+    marginLeft: "5vw",
     top: "2vh",
     borderRadius: "15px",
     height: "7vh",
@@ -63,30 +63,47 @@ const containerVariants: Variants = {
   },
   initial: {
     width: "100vw",
+    marginLeft: 0,
     top: 0,
-    height: "10vh"
+    borderRadius: 0,
+    height: "10vh",
   },
+  hidden: {
+    top: "-10vh"
+  }
 };
 
 export default function Navbar() {
   const controls = useAnimationControls();
-  const { scroll } = useScrollStore();
+  const { scrollY } = useScroll();
 
-  useEffect(() => {
-    if (scroll > 0) {
-      void controls.start("scrolled");
+  const {scroll, setScroll} = useScrollStore()
+
+  useMotionValueEvent(scrollY, "change", (latest) => {
+    setScroll(latest)
+    console.log("ScrollY", latest)
+
+    // If scroll down
+    if (latest > scroll) {
+      void controls.start("hidden");
     } else {
-      void controls.start("initial");
+      // If scroll up
+      if (latest < 100) {
+        void controls.start("initial");
+      } else {
+        void controls.start("scrolled");
+      }
     }
-  }, [controls, scroll])
+  });
 
   return (
     <motion.div
-      className="sticky top-0 flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
+      className="fixed top-0 m-auto flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
       variants={containerVariants}
+      initial={"initial"}
       animate={controls}
       transition={{
-        duration: .25,
+        duration: 0.25,
       }}
       layout
     >

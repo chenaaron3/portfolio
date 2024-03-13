@@ -3,6 +3,7 @@ import {
   motion,
   useMotionValueEvent,
   useScroll,
+  useTransform,
   type Variants,
 } from "framer-motion";
 import { COVER_DELAY } from "~/utils/constants";
@@ -23,8 +24,34 @@ const variants: Variants = {
 };
 
 export default function Hero() {
+  const ref = useRef(null);
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start end", "end end"],
+  });
+
+  // Keyboard animations
+  const top = useTransform(scrollYProgress, [0.42, 0.70], ["0vh", "-20vh"]);
+  const width = useTransform(
+    scrollYProgress,
+    [0.42, 0.70],
+    ["16.666667%;", "100vw"],
+  );
+
+  // Text animations
+  const textTop = useTransform(scrollYProgress, [0.42, 0.70], ["0vh", "40vh"]);
+  const opacity = useTransform(scrollYProgress, [0.42, 0.5, .75], [1, .25, 0]);
+  const scale = useTransform(scrollYProgress, [0.42, 0.5, .75], [1, .85, .5]);
+
+  useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log("Scroll Y", latest);
+  });
+
   return (
-    <div className="relative mt-[15vh] h-[200vh] w-screen bg-[var(--bg-color)]">
+    <div
+      className="relative mt-[25vh] h-[200vh] w-screen bg-[var(--bg-color)]"
+      ref={ref}
+    >
       <motion.div
         className="relative flex flex-col items-center gap-5"
         initial="hidden"
@@ -35,6 +62,7 @@ export default function Hero() {
           delayChildren: COVER_DELAY + 0.5,
           staggerChildren: 0.25,
         }}
+        style={{ top: textTop, opacity, scale }}
       >
         <motion.div
           className="relative text-[var(--main-color)]"
@@ -65,7 +93,10 @@ export default function Hero() {
       </motion.div>
 
       {/* Keyboard */}
-      <div className="m-auto mt-24 flex h-1/2 w-1/6 flex-col gap-5 rounded-3xl bg-[var(--sub-alt-color)] pt-12">
+      <motion.div
+        className="sticky top-0 m-auto mt-[15vh] flex h-1/2 w-1/6 flex-col gap-5 rounded-3xl bg-[var(--sub-text-color)] pt-12"
+        style={{ top, width }}
+      >
         <div className="flex justify-center gap-3">
           <Key character={"S"} />
           <Key character={"E"} />
@@ -82,7 +113,7 @@ export default function Hero() {
             <Key character={"↓"} />
           </span>
         </div>
-      </div>
+      </motion.div>
     </div>
   );
 }
