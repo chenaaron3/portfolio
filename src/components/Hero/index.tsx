@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import { COVER_DELAY } from "~/utils/constants";
 import { Key } from "./Key";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
 
 const variants: Variants = {
   hidden: {
@@ -24,32 +24,57 @@ const variants: Variants = {
 };
 
 export default function Hero() {
-  const ref = useRef(null);
+  const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
     offset: ["start end", "end end"],
   });
 
   // Keyboard animations
-  const top = useTransform(scrollYProgress, [0.42, 0.70], ["0vh", "-20vh"]);
+  const top = useTransform(scrollYProgress, [0.42, 0.7], ["0vh", "-20vh"]);
   const width = useTransform(
     scrollYProgress,
-    [0.42, 0.70],
+    [0.42, 0.7],
     ["16.666667%;", "100vw"],
   );
 
   // Text animations
-  const textTop = useTransform(scrollYProgress, [0.42, 0.70], ["0vh", "40vh"]);
-  const opacity = useTransform(scrollYProgress, [0.42, 0.5, .75], [1, .25, 0]);
-  const scale = useTransform(scrollYProgress, [0.42, 0.5, .75], [1, .85, .5]);
+  const textTop = useTransform(scrollYProgress, [0.42, 0.7], ["0vh", "40vh"]);
+  const opacity = useTransform(
+    scrollYProgress,
+    [0.42, 0.5, 0.75],
+    [1, 0.25, 0],
+  );
+  const scale = useTransform(
+    scrollYProgress,
+    [0.42, 0.5, 0.75],
+    [1, 0.85, 0.5],
+  );
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     console.log("Scroll Y", latest);
   });
 
+  useEffect(() => {
+    const updateMousePosition = (ev: MouseEvent) => {
+      if (!ref.current) return;
+      const { clientX, clientY } = ev;
+      ref.current.style.setProperty("--x", `${clientX}px`);
+      ref.current.style.setProperty("--y", `${clientY}px`);
+    };
+
+    window.addEventListener("mousemove", updateMousePosition);
+
+    return () => {
+      window.removeEventListener("mousemove", updateMousePosition);
+    };
+  }, []);
+
   return (
     <div
-      className="relative mt-[25vh] h-[200vh] w-screen bg-[var(--bg-color)]"
+      className="relative mt-[25vh] h-[200vh] w-screen bg-[var(--bg-color)]
+      before:fixed before:inset-0 before:z-0 before:bg-[radial-gradient(circle_farthest-side_at_var(--x,_100px)_var(--y,_100px),_var(--main-color)_-100%,_transparent_100%)] before:opacity-20
+      "
       ref={ref}
     >
       <motion.div
