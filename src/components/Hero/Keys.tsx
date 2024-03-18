@@ -19,7 +19,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               0,
-            )
+            ).offset
           }
         />
         <Key
@@ -31,7 +31,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               1,
-            )
+            ).offset
           }
         />
         <Key
@@ -43,7 +43,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               2,
-            )
+            ).offset
           }
         />
       </div>
@@ -57,7 +57,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               3,
-            )
+            ).offset
           }
         />
         <Key
@@ -69,7 +69,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               4,
-            )
+            ).offset
           }
         />
         <Key
@@ -81,7 +81,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               5,
-            )
+            ).offset
           }
         />
         <Key
@@ -93,7 +93,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               6,
-            )
+            ).offset
           }
         />
       </div>
@@ -107,7 +107,7 @@ export const Keys: React.FC<KeysProps> = ({ scrollState }) => {
               HeroKeyframes.seeMorePressed,
               8,
               7,
-            )
+            ).offset
           }
           bouncy
         />

@@ -43,8 +43,8 @@ export const Power: React.FC<PowerProps> = ({ scrollState }) => {
   return (
     <motion.div className="absolute inset-0 flex h-full items-center justify-center">
       <motion.svg
-        height="35%"
-        width="35%"
+        height="7vw"
+        width="7vw"
         viewBox="0 0 30.143 30.143"
         variants={variants}
         initial="hidden"
