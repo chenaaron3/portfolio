@@ -3,8 +3,9 @@ import Navbar from "~/components/Navbar";
 import Cover from "~/components/Cover";
 import Hero from "~/components/Hero";
 import { useMotionValueEvent, useScroll } from "framer-motion";
-import { useCallback, useRef } from "react";
+import { useCallback, useEffect, useRef } from "react";
 import { useScrollStore } from "~/store";
+import About from "~/components/About";
 
 export default function Home() {
   return (
@@ -16,9 +17,10 @@ export default function Home() {
       </Head>
       <main>
         <Cover />
-        <div className="relative overflow-x-hidden bg-[var(--bg-color)]">
+        <div className="relative overflow-x-clip bg-[var(--bg-color)]">
           <Navbar />
           <Hero />
+          <About />
           <div className="h-[400vh]"></div>
         </div>
       </main>

@@ -60,6 +60,7 @@ const containerVariants: Variants = {
     borderRadius: "15px",
     height: "7vh",
     zIndex: 50,
+    opacity: 1,
   },
   initial: {
     width: "100vw",
@@ -67,24 +68,29 @@ const containerVariants: Variants = {
     top: 0,
     borderRadius: 0,
     height: "10vh",
+    zIndex: 50,
+    opacity: 1,
   },
   hidden: {
-    top: "-10vh"
-  }
+    opacity: 0,
+    zIndex: 10,
+    top: "-10vh",
+  },
 };
 
 export default function Navbar() {
   const controls = useAnimationControls();
   const { scrollY } = useScroll();
 
-  const {scroll, setScroll} = useScrollStore()
+  useEffect(() => {
+    void controls.start("initial", {
+      delay: COVER_DELAY - .5,
+    });
+  }, [controls]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
-    setScroll(latest)
-    console.log("ScrollY", latest)
-
     // If scroll down
-    if (latest > scroll) {
+    if (scrollY.getVelocity() > 0) {
       void controls.start("hidden");
     } else {
       // If scroll up
@@ -100,7 +106,7 @@ export default function Navbar() {
     <motion.div
       className="fixed top-0 m-auto flex h-[10vh] items-center justify-between bg-[var(--sub-alt-color)] text-[var(--text-color)] shadow-lg"
       variants={containerVariants}
-      initial={"initial"}
+      initial={"hidden"}
       animate={controls}
       transition={{
         duration: 0.25,

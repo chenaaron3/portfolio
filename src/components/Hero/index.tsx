@@ -7,10 +7,11 @@ import {
   type Variants,
 } from "framer-motion";
 import { COVER_DELAY } from "~/utils/constants";
-import { Key } from "./Key";
-import { useEffect, useRef } from "react";
+import { useEffect, useRef, useState } from "react";
+import { Keys } from "./Keys";
+import { Power } from "./Power";
 
-const variants: Variants = {
+const textVariants: Variants = {
   hidden: {
     scale: 0.9,
     opacity: 0,
@@ -23,38 +24,64 @@ const variants: Variants = {
   },
 };
 
+const keyboardVariants: Variants = {
+  hidden: {
+    opacity: 0,
+    top: "75%",
+  },
+  visible: {
+    opacity: 1,
+    top: "50%",
+  },
+};
+
+export const HeroKeyframes = {
+  init: 0,
+  seeMoreFadeIn: 0.25,
+  seeMorePressed: 0.5,
+  seeMoreFadeOut: 0.55,
+  powerFadeIn: 0.7,
+  powerFinish: 1,
+};
+
 export default function Hero() {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end end"],
+    offset: ["start start", "end end"],
   });
+  const [scrollState, setScrollState] = useState(0);
 
   // Keyboard animations
-  const top = useTransform(scrollYProgress, [0.42, 0.7], ["0vh", "-20vh"]);
-  const width = useTransform(
+  const translate = useTransform(
     scrollYProgress,
-    [0.42, 0.7],
-    ["16.666667%;", "100vw"],
+    [HeroKeyframes.init, HeroKeyframes.seeMoreFadeIn],
+    ["0", "-50%"],
   );
 
   // Text animations
-  const textTop = useTransform(scrollYProgress, [0.42, 0.7], ["0vh", "40vh"]);
+  const textTop = useTransform(
+    scrollYProgress,
+    [HeroKeyframes.init, HeroKeyframes.seeMoreFadeIn],
+    ["0vh", "40vh"],
+  );
   const opacity = useTransform(
     scrollYProgress,
-    [0.42, 0.5, 0.75],
-    [1, 0.25, 0],
+    [HeroKeyframes.init, HeroKeyframes.seeMoreFadeIn],
+    [1, 0],
   );
   const scale = useTransform(
     scrollYProgress,
-    [0.42, 0.5, 0.75],
-    [1, 0.85, 0.5],
+    [HeroKeyframes.init, HeroKeyframes.seeMoreFadeIn],
+    [1, 0.5],
   );
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    setScrollState(latest);
     console.log("Scroll Y", latest);
   });
 
+  // Update background gradient position
   useEffect(() => {
     const updateMousePosition = (ev: MouseEvent) => {
       if (!ref.current) return;
@@ -72,16 +99,16 @@ export default function Hero() {
 
   return (
     <div
-      className="relative mt-[25vh] h-[200vh] w-screen bg-[var(--bg-color)]
-      before:fixed before:inset-0 before:z-0 before:bg-[radial-gradient(circle_farthest-side_at_var(--x,_100px)_var(--y,_100px),_var(--main-color)_-100%,_transparent_100%)] before:opacity-20
+      className="relative h-[300vh] w-screen
+      before:fixed before:inset-0 before:bg-[radial-gradient(circle_farthest-side_at_var(--x,_100px)_var(--y,_100px),_var(--main-color)_-100%,_transparent_100%)] before:opacity-20
       "
       ref={ref}
     >
       <motion.div
-        className="relative flex flex-col items-center gap-5"
+        className="relative mb-24 flex flex-col items-center gap-5 pt-[25vh]"
         initial="hidden"
         animate="visible"
-        variants={variants}
+        variants={textVariants}
         transition={{
           duration: 1,
           delayChildren: COVER_DELAY + 0.5,
@@ -91,25 +118,25 @@ export default function Hero() {
       >
         <motion.div
           className="relative text-[var(--main-color)]"
-          variants={variants}
+          variants={textVariants}
         >
           Hi there! My name is
         </motion.div>
         <motion.div
           className="relative text-7xl text-[var(--sub-text-color)]"
-          variants={variants}
+          variants={textVariants}
         >
           Aaron Chen.
         </motion.div>
         <motion.div
           className="relative text-5xl  text-[var(--text-color)]"
-          variants={variants}
+          variants={textVariants}
         >
           I build things on computers.
         </motion.div>
         <motion.div
           className="relative mt-3 text-center text-xl text-[var(--text-color)]"
-          variants={variants}
+          variants={textVariants}
         >
           As a software engineer, I materialize ideas into outstanding websites.{" "}
           <br /> My current focus is developing malware detection software for
@@ -119,25 +146,26 @@ export default function Hero() {
 
       {/* Keyboard */}
       <motion.div
-        className="sticky top-0 m-auto mt-[15vh] flex h-1/2 w-1/6 flex-col gap-5 rounded-3xl bg-[var(--sub-text-color)] pt-12"
-        style={{ top, width }}
+        className="sticky top-1/2 m-auto flex h-[30vh] w-1/6 flex-col items-center justify-center gap-5 rounded-3xl bg-[var(--sub-alt-color)]"
+        style={{ translateY: translate }}
+        initial="hidden"
+        animate="visible"
+        variants={keyboardVariants}
+        transition={{
+          duration: 1,
+          delay: COVER_DELAY - 0.5,
+        }}
       >
-        <div className="flex justify-center gap-3">
-          <Key character={"S"} />
-          <Key character={"E"} />
-          <Key character={"E"} />
-        </div>
-        <div className="flex justify-center gap-3">
-          <Key character={"M"} />
-          <Key character={"O"} />
-          <Key character={"R"} />
-          <Key character={"E"} />
-        </div>
-        <div className="flex justify-center gap-3 ">
-          <span className="mt-3 animate-bounce hover:mt-0 hover:animate-none">
-            <Key character={"↓"} />
-          </span>
-        </div>
+        <AnimatePresence>
+          {scrollState <= HeroKeyframes.seeMoreFadeOut && (
+            <Keys scrollState={scrollState} />
+          )}
+        </AnimatePresence>
+        <AnimatePresence>
+          {scrollState > HeroKeyframes.seeMoreFadeOut && (
+            <Power scrollState={scrollYProgress} />
+          )}
+        </AnimatePresence>
       </motion.div>
     </div>
   );
