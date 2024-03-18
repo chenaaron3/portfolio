@@ -37,7 +37,7 @@ export default function About() {
             broaden my knowledge.
           </p>
           <p>
-            To achieve this goal, I follow the principles of 'Learn By Doing'.
+            To achieve this goal, I follow the principles of &apos;Learn By Doing&apos;.
             The majority of my learning process involves hands-on projects. This
             portfolio showcases some of those projects.
           </p>
