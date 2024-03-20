@@ -1,19 +1,20 @@
 import {
   AnimatePresence,
-  MotionValue,
-  Variant,
-  Variants,
+  type Variants,
   motion,
   useAnimationControls,
+  type MotionValue,
+  useTransform,
 } from "framer-motion";
 import { useEffect, useState } from "react";
 import { calcOffset } from "~/utils/animation";
+import { AboutKeyframes } from ".";
 
 interface LineProps {
+  scrollYProgress: MotionValue<number>;
   scrollState: number;
   text: string;
-  start: number;
-  end: number;
+  index: number;
 }
 const lineVariants: Variants = {
   hidden: {
@@ -28,10 +29,37 @@ const lineVariants: Variants = {
 export const Line: React.FC<LineProps> = ({
   scrollState,
   text,
-  start,
-  end,
+  scrollYProgress,
+  index,
 }) => {
   const [words, setWords] = useState<string[]>([]);
+
+  const fadeInOffset = calcOffset(
+    AboutKeyframes.lineStart,
+    AboutKeyframes.lineFinish,
+    4,
+    index,
+  )
+  const start = fadeInOffset.offset
+  const end = fadeInOffset.nextOffset
+
+  const fadeOutOffset = calcOffset(
+    AboutKeyframes.lineFadeOut,
+    AboutKeyframes.pictureFadeIn,
+    4,
+    index,
+  )
+
+  const translate = useTransform(
+    scrollYProgress,
+    [fadeOutOffset.offset, fadeOutOffset.nextOffset],
+    [0, 10],
+  );
+  const opacity = useTransform(
+    scrollYProgress,
+    [fadeOutOffset.offset, fadeOutOffset.nextOffset],
+    [1, 0],
+  )
 
   useEffect(() => {
     setWords(text.split(" "));
@@ -46,6 +74,9 @@ export const Line: React.FC<LineProps> = ({
           initial="hidden"
           animate="visible"
           exit="hidden"
+          style={{
+            translateX: translate, translateY: translate, opacity
+          }}
         >
           <span className="mr-3 text-[var(--main-color)]">&gt;</span>
           {words.map((word, i) => {

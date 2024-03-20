@@ -37,11 +37,12 @@ const keyboardVariants: Variants = {
 
 export const HeroKeyframes = {
   init: 0,
-  seeMoreFadeIn: 0.15,
-  seeMorePressed: 0.45,
-  seeMoreFadeOut: 0.5,
-  powerFadeIn: 0.55,
+  seeMoreFadeIn: 0.1,
+  seeMorePressed: 0.4,
+  seeMoreFadeOut: 0.45,
+  powerFadeIn: 0.5,
   powerFinish: 0.9,
+  powerFadeOut: 0.95,
   finish: 1,
 };
 
@@ -61,8 +62,18 @@ export default function Hero() {
   );
   const powerScale = useTransform(
     scrollYProgress,
-    [HeroKeyframes.powerFadeIn, HeroKeyframes.powerFinish, HeroKeyframes.finish],
-    [1, 1.1, 0],
+    [
+      HeroKeyframes.powerFadeIn,
+      HeroKeyframes.powerFinish,
+      HeroKeyframes.powerFadeOut,
+      HeroKeyframes.finish,
+    ],
+    [1, 1.1, 1.1, 0.5],
+  );
+  const powerOpacity = useTransform(
+    scrollYProgress,
+    [HeroKeyframes.powerFadeOut, .99, HeroKeyframes.finish],
+    [1, 0.5, 0],
   );
 
   // Text animations
@@ -105,7 +116,7 @@ export default function Hero() {
 
   return (
     <div
-      className="relative h-[400vh] w-screen
+      className="relative h-[500vh] w-screen
       before:fixed before:inset-0 before:bg-[radial-gradient(circle_farthest-side_at_var(--x,_100px)_var(--y,_100px),_var(--main-color)_-100%,_transparent_100%)] before:opacity-20
       "
       ref={ref}
@@ -153,7 +164,11 @@ export default function Hero() {
       {/* Keyboard */}
       <motion.div
         className="sticky top-1/2 m-auto mb-[calc(30vh_-_15vh)] flex h-[30vh] w-1/6 flex-col items-center justify-center gap-5 rounded-3xl bg-[var(--sub-alt-color)]"
-        style={{ translateY: translate, scale: powerScale }}
+        style={{
+          translateY: translate,
+          scale: powerScale,
+          opacity: powerOpacity,
+        }}
         initial="hidden"
         animate="visible"
         variants={keyboardVariants}
