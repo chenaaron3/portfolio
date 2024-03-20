@@ -1,6 +1,6 @@
 import Image from "next/image";
 import {
-  MotionValue,
+  type MotionValue,
   motion,
   useAnimate,
   useAnimationControls,
@@ -8,6 +8,7 @@ import {
 } from "framer-motion";
 import { useEffect } from "react";
 import { AboutKeyframes } from ".";
+import ProfilePicture from "../../../public/photo.jpg";
 
 interface AvatarProps {
   scrollYProgress: MotionValue<number>;
@@ -16,26 +17,17 @@ interface AvatarProps {
 export const Avatar: React.FC<AvatarProps> = ({ scrollYProgress }) => {
   const rotate = useTransform(
     scrollYProgress,
-    [
-      AboutKeyframes.pictureFadeIn,
-      AboutKeyframes.pictureFadeInEnd,
-    ],
+    [AboutKeyframes.pictureFadeIn, AboutKeyframes.pictureFadeInEnd],
     ["-60deg", "0deg"],
   );
   const scale = useTransform(
     scrollYProgress,
-    [
-      AboutKeyframes.pictureFadeIn,
-      AboutKeyframes.pictureFadeInEnd,
-    ],
+    [AboutKeyframes.pictureFadeIn, AboutKeyframes.pictureFadeInEnd],
     [0.1, 1],
   );
   const right = useTransform(
     scrollYProgress,
-    [
-      AboutKeyframes.pictureFadeIn,
-      AboutKeyframes.pictureFadeInEnd,
-    ],
+    [AboutKeyframes.pictureFadeIn, AboutKeyframes.pictureFadeInEnd],
     ["50%", "0%"],
   );
 
@@ -50,11 +42,11 @@ export const Avatar: React.FC<AvatarProps> = ({ scrollYProgress }) => {
         id="ball"
         className="relative h-[40vh] w-[40vh] overflow-hidden rounded-full"
         style={{
-            rotate,
-                    scale,
+          rotate,
+          scale,
         }}
       >
-        <Image layout="fill" src="/photo.jpg" alt="photo"></Image>
+        <Image layout="fill" src={ProfilePicture} alt="photo"></Image>
       </motion.div>
     </motion.div>
   );

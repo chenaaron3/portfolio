@@ -6,7 +6,7 @@ await import("./src/env.js");
 
 /** @type {import("next").NextConfig} */
 const config = {
-  images: {unoptimized: true, path: "/"},
+  images: {unoptimized: true},
   output: "export",
   reactStrictMode: true,
 
