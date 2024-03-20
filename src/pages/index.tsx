@@ -6,6 +6,7 @@ import { useMotionValueEvent, useScroll } from "framer-motion";
 import { useCallback, useEffect, useRef } from "react";
 import { useScrollStore } from "~/store";
 import About from "~/components/About";
+import Skills from "~/components/Skills";
 
 export default function Home() {
   return (
@@ -21,6 +22,7 @@ export default function Home() {
           <Navbar />
           <Hero />
           <About />
+          <Skills />
           <div className="h-[400vh]"></div>
         </div>
       </main>
