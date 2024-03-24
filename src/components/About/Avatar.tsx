@@ -8,7 +8,7 @@ import {
 } from "framer-motion";
 import { useEffect } from "react";
 import { AboutKeyframes } from ".";
-import ProfilePicture from "../../../public/photo.jpg";
+import ProfilePicture from "../../../public/images/photo.jpg";
 
 interface AvatarProps {
   scrollYProgress: MotionValue<number>;

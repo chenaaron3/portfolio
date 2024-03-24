@@ -10,7 +10,7 @@ const font = Montserrat({
 
 const MyApp: AppType = ({ Component, pageProps }) => {
   return (
-    <main className={`font-sans ${font.variable}`}>
+    <main className={`font-sans ${font.variable} scroll-smooth`}>
       <Component {...pageProps} />
     </main>
   );

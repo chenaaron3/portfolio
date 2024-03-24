@@ -9,19 +9,17 @@ import {
 import { useRef, useState } from "react";
 import { Line } from "./Line";
 import { Power } from "../Hero/Power";
-import { calcOffset } from "~/utils/animation";
 import { Avatar } from "./Avatar";
 
 export const AboutKeyframes = {
   init: 0,
   lineStart: 0.1,
-  lineFinish: 0.5,
-  lineFadeOut: 0.6,
-  pictureFadeIn: 0.7,
-  pictureFadeInEnd: .75,
-  pictureFadeOut: 0.85,
-  pictureFadeOutEnd: 0.9,
-  fadeOut: 0.9,
+  lineFinish: 0.75,
+  lineFadeOut: 0.8,
+  pictureFadeIn: 0.82,
+  pictureFadeInEnd: .85,
+  pictureFadeOut: 0.95,
+  pictureFadeOutEnd: 0.97,
   finish: 1,
 };
 
@@ -33,25 +31,20 @@ export default function About() {
   });
   const [scrollState, setScrollState] = useState(0);
   const power = useMotionValue(0.85);
-  const scale = useTransform(
-    scrollYProgress,
-    [AboutKeyframes.fadeOut, AboutKeyframes.finish],
-    [1, 0],
-  );
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
+    console.log(latest)
     setScrollState(latest);
   });
 
   return (
-    <div className="relative flex h-[500vh] w-screen justify-center" ref={ref}>
+    <div className="relative flex h-[700vh] w-screen justify-center" ref={ref}>
       <AnimatePresence>
         {scrollState > 0 && (
           <motion.div
-            className="fixed top-[calc(50vh_-_30vh)] flex h-[60vh] w-[50vw] flex-col rounded-xl bg-[var(--sub-alt-color)]"
+            className="sticky top-[calc(50vh_-_30vh)] flex h-[60vh] w-[50vw] flex-col rounded-xl bg-[var(--sub-alt-color)]"
             initial={{ translateY: "10px", opacity: 0.75 }}
             animate={{ translateY: 0, opacity: 1 }}
-            style={{ scale }}
           >
             <div className="relative flex h-14 w-full items-center rounded-t-xl bg-[var(--sub-color)] text-2xl">
               <div className="absolute ml-3 flex gap-3">
