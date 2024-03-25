@@ -84,7 +84,7 @@ export default function Navbar() {
 
   useEffect(() => {
     void controls.start("initial", {
-      delay: COVER_DELAY - .5,
+      delay: COVER_DELAY - 0.5,
     });
   }, [controls]);
 
@@ -121,8 +121,13 @@ export default function Navbar() {
         className="relative scale-50"
         initial="hidden"
         animate="visible"
-        // whileHover="hover"
         variants={logoVariants}
+        onClick={() => {
+          const section = document.querySelector(`#Home`);
+          if (section != null) {
+            section.scrollIntoView({ behavior: "smooth", block: "start" });
+          }
+        }}
       >
         <g stroke="#000" fill="none">
           <motion.path
@@ -174,6 +179,12 @@ const NavItem: FC<NavItemProps> = ({ name }) => {
       onHoverEnd={() => setHovered(false)}
       variants={itemVariants}
       className="relative cursor-pointer"
+      onClick={() => {
+        const section = document.querySelector(`#${name}`);
+        if (section != null) {
+          section.scrollIntoView({ behavior: "smooth", block: "start" });
+        }
+      }}
     >
       <AnimatePresence>
         {isHovered && (

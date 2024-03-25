@@ -33,12 +33,11 @@ export default function About() {
   const power = useMotionValue(0.85);
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
-    console.log(latest)
     setScrollState(latest);
   });
 
   return (
-    <div className="relative flex h-[700vh] w-screen justify-center" ref={ref}>
+    <div id="About" className="relative flex h-[700vh] w-screen justify-center" ref={ref}>
       <AnimatePresence>
         {scrollState > 0 && (
           <motion.div

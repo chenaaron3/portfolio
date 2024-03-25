@@ -72,7 +72,7 @@ export default function Hero() {
   );
   const powerOpacity = useTransform(
     scrollYProgress,
-    [HeroKeyframes.powerFadeOut, .99, HeroKeyframes.finish],
+    [HeroKeyframes.powerFadeOut, 0.99, HeroKeyframes.finish],
     [1, 0.5, 0],
   );
 
@@ -95,7 +95,6 @@ export default function Hero() {
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     setScrollState(latest);
-    console.log("Scroll Y", latest);
   });
 
   // Update background gradient position
@@ -116,6 +115,7 @@ export default function Hero() {
 
   return (
     <div
+      id="Home"
       className="relative h-[500vh] w-screen
       before:fixed before:inset-0 before:bg-[radial-gradient(circle_farthest-side_at_var(--x,_100px)_var(--y,_100px),_var(--main-color)_-100%,_transparent_100%)] before:opacity-20
       "

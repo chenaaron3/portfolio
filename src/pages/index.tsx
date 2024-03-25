@@ -2,11 +2,9 @@ import Head from "next/head";
 import Navbar from "~/components/Navbar";
 import Cover from "~/components/Cover";
 import Hero from "~/components/Hero";
-import { useMotionValueEvent, useScroll } from "framer-motion";
-import { useCallback, useEffect, useRef } from "react";
-import { useScrollStore } from "~/store";
 import About from "~/components/About";
 import Skills from "~/components/Skills";
+import Experience from "~/components/Experience";
 
 export default function Home() {
   return (
@@ -23,7 +21,8 @@ export default function Home() {
           <Hero />
           <About />
           <Skills />
-          <div className="h-[400vh]"></div>
+          <Experience />
+          <div className="h-[400vh] bg-white"></div>
         </div>
       </main>
     </>

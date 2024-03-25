@@ -36,7 +36,6 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
   const [description, setDescription] = useState("");
 
   useEffect(() => {
-    console.log(prof);
     if (prof == 1) {
       setDescription("Familiar");
     } else if (prof == 2) {

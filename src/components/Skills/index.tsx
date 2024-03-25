@@ -17,7 +17,6 @@ import Jenkins from "../../../public/images/Jenkins.png";
 import GraphQL from "../../../public/images/GraphQL.png";
 import SQL from "../../../public/images/SQL.png";
 
-
 import { useScroll } from "framer-motion";
 import { Row } from "./Row";
 import Image, { type StaticImageData } from "next/image";
@@ -122,7 +121,7 @@ export default function Skills() {
   ];
 
   return (
-    <div className="relative h-[500vh] w-screen" ref={ref}>
+    <div id="Skills" className="relative h-[500vh] w-screen" ref={ref}>
       <div className="mt-[25vh]"></div>
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center gap-16">
         <h1 className="text-center text-5xl text-[var(--sub-text-color)]">

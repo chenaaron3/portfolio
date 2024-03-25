@@ -116,15 +116,23 @@ const Word: React.FC<WordProps> = ({ text, active }) => {
   const controls = useAnimationControls();
   useEffect(() => {
     const animate = async () => {
+      let timeoutId: NodeJS.Timeout | null = null;
       if (active) {
         // When active, highlight for a brief moment
         await controls.start("highlight", {
           duration: 0.1,
         });
-        await new Promise((r) => setTimeout(r, 100));
-        await controls.start("visible");
+        timeoutId = setTimeout(() => {
+          void controls.start("visible");
+        }, 100)
       } else {
         await controls.start("hidden");
+      }
+
+      return () => {
+        if (timeoutId != null) {
+          clearTimeout(timeoutId)
+        }
       }
     };
     void animate();
