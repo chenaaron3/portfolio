@@ -14,10 +14,11 @@ export default function Contacts() {
       </h1>
       <CardContainer>
         <CardBody className="group/card relative flex  h-auto w-auto flex-col items-center justify-center gap-3 rounded-xl bg-[var(--sub-alt-color)] p-12 text-[var(--text-color)]">
-          <CardItem translateZ={100}>
-            <motion.div className="relative m-auto h-[5vh] w-[5vh]">
-              <Power scrollState={power} />
-            </motion.div>
+          <CardItem
+            translateZ={20}
+            className="absolute right-5 top-5 m-auto h-[2vh] w-[2vh]"
+          >
+            <Power scrollState={power} />
           </CardItem>
           <CardItem translateZ={60} className="text-3xl font-bold">
             Aaron Chen
