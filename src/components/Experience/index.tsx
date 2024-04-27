@@ -22,7 +22,7 @@ export default function Experience() {
   return (
     <div
     id="Experience"
-      className="relative flex h-[200vh] w-screen flex-col items-center"
+      className="relative flex h-[200vh] w-screen flex-col items-center mb-[15vh]"
       ref={ref}
     >
       <motion.div
@@ -60,8 +60,6 @@ export default function Experience() {
               endDate: new Date("06/01/2021"),
               details: [
                 "Worked on a GPS Receiver tool in C# under the Navigation System department.",
-                "Investigated and fixed bugs under a large code base.",
-                "Participated in weekly meetings with a team of 4 to discuss progress and roadblocks.",
               ],
             }}
           />
@@ -76,8 +74,6 @@ export default function Experience() {
               endDate: new Date("12/01/2021"),
               details: [
                 "Designed and implemented Python scripts for testing satellite database commands, ensuring data integrity and system reliability for mission critical software.",
-                "Integrated testing suite into a CI/CD pipeline, automating the testing process.",
-                "Participate in daily scrum meetings with a team of 8 to discuss progress and roadblocks.",
               ],
             }}
           />
@@ -92,8 +88,6 @@ export default function Experience() {
               startDate: new Date("03/01/2022"),
               details: [
                 "Designed a cloud service to identify malicious files in customer data centers, enabling scanning of one million systems per month.",
-                "Led the beta release process, collaborating with internal customers to detect and resolve three critical bugs efficiently.",
-                "Actively engaged in the on-call rotation, promptly addressing customer-reported bugs and increased pipeline passing percentage by 20%."
               ],
             }}
           />
