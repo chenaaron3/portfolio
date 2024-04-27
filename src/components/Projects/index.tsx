@@ -67,7 +67,7 @@ export default function Projects() {
   });
 
   return (
-    <div id="Projects" className="relative  h-[300vh] w-screen " ref={ref}>
+    <div id="Projects" className="relative h-[300vh] w-screen " ref={ref}>
       <div className="sticky top-0 flex h-screen flex-col items-center pt-[15vh]">
         <h1 className="text-center text-5xl text-[var(--sub-text-color)]">
           Showcasing my{" "}

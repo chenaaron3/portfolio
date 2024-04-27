@@ -6,6 +6,7 @@ import About from "~/components/About";
 import Skills from "~/components/Skills";
 import Experience from "~/components/Experience";
 import Projects from "~/components/Projects";
+import Contacts from "~/components/Contacts";
 
 export default function Home() {
   return (
@@ -24,7 +25,7 @@ export default function Home() {
           <Skills />
           <Experience />
           <Projects/>
-          <div className="h-[400vh] bg-white"></div>
+          <Contacts/>
         </div>
       </main>
     </>
