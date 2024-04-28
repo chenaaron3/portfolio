@@ -31,7 +31,7 @@ export default function Experience() {
           translateY,
         }}
       >
-        <h1 className="text-center text-5xl text-[var(--sub-text-color)]">
+        <h1 className="text-center text-3xl lg:text-5xl text-[var(--sub-text-color)]">
           A timeline of my{" "}
           <span className="text-[var(--main-color)]">experiences</span>
         </h1>

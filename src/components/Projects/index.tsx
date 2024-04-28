@@ -69,21 +69,21 @@ export default function Projects() {
   return (
     <div id="Projects" className="relative h-[300vh] w-screen " ref={ref}>
       <div className="sticky top-0 flex h-screen flex-col items-center pt-[15vh]">
-        <h1 className="text-center text-5xl text-[var(--sub-text-color)]">
+        <h1 className="text-center text-3xl text-[var(--sub-text-color)] lg:text-5xl">
           Showcasing my{" "}
           <span className="text-[var(--main-color)]">projects</span>
         </h1>
-        <div className="m-auto flex h-[40vh] w-full flex-row">
-          <div className="flex h-full w-1 flex-col gap-3 pl-5">
+        <div className="m-auto flex h-full w-full flex-col lg:h-[40vh] lg:flex-row">
+          <div className="flex w-full h-1 lg:h-full lg:w-1 flex-row lg:flex-col gap-3 lg:pl-5 mt-10 lg:mt-0">
             {projects.map((_, i) => (
               <div
                 key={`project-divider-${i}`}
-                className="rounded-full min-w-1 flex-1 bg-[var(--sub-alt-color)]"
+                className="min-h-1 lg:min-w-1 flex-1 rounded-full bg-[var(--sub-alt-color)]"
               >
                 {activeProject == i && (
                   <motion.div
                     layoutId="projecttab"
-                    className="rounded-full h-full w-full bg-[var(--main-color)]"
+                    className="h-full w-full rounded-full bg-[var(--main-color)]"
                   />
                 )}
               </div>

@@ -3,6 +3,7 @@ import {
   motion,
   useTransform,
   type MotionValue,
+  AnimatePresence,
 } from "framer-motion";
 import { HeroKeyframes } from ".";
 
@@ -32,7 +33,7 @@ export const Power: React.FC<PowerProps> = ({ scrollState }) => {
     scrollState,
     [HeroKeyframes.powerFadeIn, HeroKeyframes.powerFinish],
     ["drop-shadow(0px 0px 0px #0A192F)", "drop-shadow(0px 0px 20px #40E0D0)"],
-  )
+  );
 
   const scale = useTransform(
     scrollState,
@@ -41,16 +42,16 @@ export const Power: React.FC<PowerProps> = ({ scrollState }) => {
   );
 
   return (
-    <motion.div className="absolute inset-0 flex h-full items-center justify-center">
+    <motion.div className="inset-0 flex h-full items-center justify-center">
       <motion.svg
-        height="7vw"
-        width="7vw"
+        height="100%"
+        width="100%"
         viewBox="0 0 30.143 30.143"
         variants={variants}
         initial="hidden"
         animate="visible"
         exit="hidden"
-        style={{ fill, filter, scale }}        
+        style={{ fill, filter, scale }}
       >
         <g>
           <path

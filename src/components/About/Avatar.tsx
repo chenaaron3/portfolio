@@ -40,7 +40,7 @@ export const Avatar: React.FC<AvatarProps> = ({ scrollYProgress }) => {
     >
       <motion.div
         id="ball"
-        className="relative h-[40vh] w-[40vh] overflow-hidden rounded-full"
+        className="relative h-[60vw] w-[60vw] lg:h-[40vh] lg:w-[40vh] overflow-hidden rounded-full"
         style={{
           rotate,
           scale,

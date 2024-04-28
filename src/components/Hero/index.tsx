@@ -122,7 +122,7 @@ export default function Hero() {
       ref={ref}
     >
       <motion.div
-        className="relative mb-24 flex flex-col items-center gap-5 pt-[25vh]"
+        className="relative mb-12 flex flex-col items-center gap-5 pt-[15vh] lg:mb-24 lg:pt-[25vh]"
         initial="hidden"
         animate="visible"
         variants={textVariants}
@@ -140,19 +140,19 @@ export default function Hero() {
           Hi there! My name is
         </motion.div>
         <motion.div
-          className="relative text-7xl text-[var(--sub-text-color)]"
+          className="relative text-4xl text-[var(--sub-text-color)] lg:text-7xl"
           variants={textVariants}
         >
           Aaron Chen.
         </motion.div>
         <motion.div
-          className="relative text-5xl  text-[var(--text-color)]"
+          className="relative text-center text-3xl text-[var(--text-color)] lg:text-5xl"
           variants={textVariants}
         >
           I build things on computers.
         </motion.div>
         <motion.div
-          className="relative mt-3 text-center text-xl text-[var(--text-color)]"
+          className="relative mt-3 px-3 text-center text-base text-[var(--text-color)] lg:text-xl"
           variants={textVariants}
         >
           As a software engineer, I materialize ideas into outstanding websites.{" "}
@@ -163,7 +163,7 @@ export default function Hero() {
 
       {/* Keyboard */}
       <motion.div
-        className="sticky top-1/2 m-auto mb-[calc(30vh_-_15vh)] flex h-[30vh] w-1/6 flex-col items-center justify-center gap-5 rounded-3xl bg-[var(--sub-alt-color)]"
+        className="sticky top-1/2 m-auto mb-[calc(30vh_-_15vh)] flex h-[30vh] w-3/4 flex-col items-center justify-center gap-5 rounded-3xl bg-[var(--sub-alt-color)] lg:w-1/6"
         style={{
           translateY: translate,
           scale: powerScale,
@@ -182,9 +182,11 @@ export default function Hero() {
             <Keys scrollState={scrollState} />
           )}
         </AnimatePresence>
-        <AnimatePresence>
+        <AnimatePresence mode="popLayout">
           {scrollState > HeroKeyframes.seeMoreFadeOut && (
-            <Power scrollState={scrollYProgress} />
+            <div className="absolute h-1/3 w-1/3">
+              <Power scrollState={scrollYProgress} />
+            </div>
           )}
         </AnimatePresence>
       </motion.div>

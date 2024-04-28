@@ -9,6 +9,7 @@ import { useState } from "react";
 import { calcOffset } from "~/utils/animation";
 import { type ExperienceDetails } from ".";
 import { formatDate } from "~/utils/date";
+import { useMediaQuery } from "react-responsive";
 
 // 10 vh branch height
 const h = 10;
@@ -35,11 +36,11 @@ export const StraightBar: React.FC<StraightBarProps> = ({
   return (
     <div className={`relative w-1 h-[${3 * h}vh]`}>
       <motion.div
-        className={`absolute h-full w-full rounded bg-[var(--sub-alt-color)]`}
+        className={`absolute -z-30  h-full w-full rounded bg-[var(--sub-alt-color)]`}
       />
       <motion.div
         style={{ height, filter }}
-        className={`absolute z-10 w-full rounded bg-[var(--main-color)]`}
+        className={`absolute -z-20  w-full rounded bg-[var(--main-color)]`}
       />
     </div>
   );
@@ -86,6 +87,10 @@ export const SlantBar: React.FC<SlantBarProps> = ({
   const translateX = parity * (h - h * multiplyer);
   const translateY = h * multiplyer;
 
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
+
   return (
     <div
       className={`absolute w-1`}
@@ -97,14 +102,14 @@ export const SlantBar: React.FC<SlantBarProps> = ({
       }}
     >
       <motion.div
-        className={`absolute h-full w-full rounded bg-[var(--sub-alt-color)]`}
+        className={`absolute -z-30 h-full w-full rounded bg-[var(--sub-alt-color)]`}
       />
       <motion.div
         style={{ height, filter }}
-        className={`absolute z-10 w-full rounded bg-[var(--main-color)]`}
+        className={`absolute -z-20 w-full rounded bg-[var(--main-color)]`}
       />
       <motion.div
-        className={`absolute bottom-0 z-20 size-5 rounded-full bg-[var(--sub-alt-color)]`}
+        className={`absolute bottom-0 -z-10 size-5 rounded-full bg-[var(--sub-alt-color)]`}
         style={{
           rotate: reverse ? "-45deg" : "45deg",
           translate: "-50% 50%",
@@ -114,9 +119,15 @@ export const SlantBar: React.FC<SlantBarProps> = ({
         <AnimatePresence>
           {scrollState >= end && (
             <motion.div
-              className="flex h-fit w-[25vw] flex-col rounded-xl bg-[var(--sub-alt-color)] p-7 text-[var(--text-color)] shadow gap-3"
+              className="flex h-fit w-[80vw] flex-col gap-3 rounded-xl bg-[var(--sub-alt-color)] p-7 text-[var(--text-color)] shadow lg:w-[25vw]"
               style={{
-                translateX: reverse ? "calc(-100%)" : "20px",
+                translateX: isDesktop
+                  ? reverse
+                    ? "calc(-100%)"
+                    : "20px"
+                  : reverse
+                    ? "10px"
+                    : "-100%",
                 translateY: "calc(-50% + 10px)",
               }}
               initial={{
@@ -131,7 +142,7 @@ export const SlantBar: React.FC<SlantBarProps> = ({
               }}
               layout
             >
-              <h1 className="text-3xl text-[var(--sub-text-color)]">
+              <h1 className="text-xl lg:text-3xl text-[var(--sub-text-color)]">
                 {experience.position}
               </h1>
               <h1 className="text-[var(--main-color)]">
@@ -144,7 +155,7 @@ export const SlantBar: React.FC<SlantBarProps> = ({
               <ul>
                 {experience.details.map((line, i) => (
                   <li
-                    className="list-disc list-inside"
+                    className="list-inside list-disc"
                     key={`experience-${experience.location}-${i}`}
                   >
                     {line}

@@ -9,8 +9,8 @@ interface SkillProps {
 
 export const Skill: React.FC<SkillProps> = ({ details }) => {
   return (
-    <div className="m-5 flex h-[15vh] min-w-[15vw] flex-col items-center justify-center rounded-xl bg-[var(--sub-alt-color)] shadow-lg">
-      <div className="absolute top-0 h-12 w-12">
+    <div className="m-5 flex h-[10vh] min-w-[40vw] flex-col items-center justify-center rounded-xl bg-[var(--sub-alt-color)] shadow-lg lg:h-[15vh] lg:min-w-[15vw]">
+      <div className="absolute top-0 size-8 lg:size-12">
         <Image
           layout="fill"
           objectFit="contain"
@@ -18,7 +18,7 @@ export const Skill: React.FC<SkillProps> = ({ details }) => {
           src={details.image}
         />
       </div>
-      <div className="mt-2 text-4xl text-[var(--text-color)]">
+      <div className="mt-2 text-xl lg:text-4xl text-[var(--text-color)]">
         {details.name}
       </div>
       <Proficiency proficiency={details.proficiency} />
@@ -47,14 +47,14 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
 
   return (
     <div
-      className="relative mt-4 flex h-3 w-1/3 gap-3"
+      className="relative mt-4 flex h-3 w-full"
       onMouseEnter={() => setHover(true)}
       onMouseLeave={() => setHover(false)}
     >
       <AnimatePresence>
         {hover && (
           <motion.span
-            className="absolute w-full text-center text-[var(--text-color)]"
+            className="absolute w-full text-sm text-center text-[var(--text-color)]"
             animate={{ y: -10, opacity: 1 }}
             exit={{ y: 0, opacity: 0 }}
           >
@@ -64,7 +64,7 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
       </AnimatePresence>
       <AnimatePresence>
         {!hover && (
-          <>
+          <div className="w-1/2 lg:w-1/3 m-auto flex gap-2">
             {Array.from({ length: prof }).map((_, i) => {
               return (
                 <motion.div
@@ -85,7 +85,7 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
                 />
               );
             })}
-          </>
+          </div>
         )}
       </AnimatePresence>
     </div>

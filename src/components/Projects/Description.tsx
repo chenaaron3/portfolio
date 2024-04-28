@@ -9,7 +9,7 @@ export const Description: React.FC<DescriptionProps> = ({ project }) => {
   return (
     <motion.div
       key={`project-description-${project.name}`}
-      className="w-full p-14 gap-3 flex flex-col"
+      className="w-full p-3 lg:p-14 gap-3 flex flex-col"
       initial={{
         opacity: 0.0,
       }}
@@ -22,7 +22,7 @@ export const Description: React.FC<DescriptionProps> = ({ project }) => {
     >
       <p className="text-3xl text-[var(--sub-text-color)]">{project.name}</p>
       <p className="text-lg text-[var(--text-color)]">{project.description}</p>
-      <div className="flex text-sm gap-5">
+      <div className="flex text-sm gap-5 flex-wrap">
         {
             project.tags.map(tag => (<span 
             className="bg-teal-900 text-[var(--main-color)] font-semibold py-1 px-2 rounded-full"

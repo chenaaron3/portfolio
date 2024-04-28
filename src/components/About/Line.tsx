@@ -6,7 +6,7 @@ import {
   type MotionValue,
   useTransform,
 } from "framer-motion";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { calcOffset } from "~/utils/animation";
 import { AboutKeyframes } from ".";
 
@@ -39,16 +39,16 @@ export const Line: React.FC<LineProps> = ({
     AboutKeyframes.lineFinish,
     4,
     index,
-  )
-  const start = fadeInOffset.offset
-  const end = fadeInOffset.nextOffset
+  );
+  const start = fadeInOffset.offset;
+  const end = fadeInOffset.nextOffset;
 
   const fadeOutOffset = calcOffset(
     AboutKeyframes.lineFadeOut,
     AboutKeyframes.pictureFadeIn,
     4,
     index,
-  )
+  );
 
   const translate = useTransform(
     scrollYProgress,
@@ -59,7 +59,7 @@ export const Line: React.FC<LineProps> = ({
     scrollYProgress,
     [fadeOutOffset.offset, fadeOutOffset.nextOffset],
     [1, 0],
-  )
+  );
 
   useEffect(() => {
     setWords(text.split(" "));
@@ -75,7 +75,9 @@ export const Line: React.FC<LineProps> = ({
           animate="visible"
           exit="hidden"
           style={{
-            translateX: translate, translateY: translate, opacity
+            translateX: translate,
+            translateY: translate,
+            opacity,
           }}
         >
           <span className="mr-3 text-[var(--main-color)]">&gt;</span>
@@ -124,16 +126,16 @@ const Word: React.FC<WordProps> = ({ text, active }) => {
         });
         timeoutId = setTimeout(() => {
           void controls.start("visible");
-        }, 100)
+        }, 100);
       } else {
         await controls.start("hidden");
       }
 
       return () => {
         if (timeoutId != null) {
-          clearTimeout(timeoutId)
+          clearTimeout(timeoutId);
         }
-      }
+      };
     };
     void animate();
   }, [active, controls]);

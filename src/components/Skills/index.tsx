@@ -31,7 +31,7 @@ export default function Skills() {
   const ref = useRef<HTMLDivElement | null>(null);
   const { scrollYProgress } = useScroll({
     target: ref,
-    offset: ["start end", "end start"],
+    offset: ["start start", "end start"],
   });
 
   const languages: SkillDetails[] = [
@@ -124,7 +124,7 @@ export default function Skills() {
     <div id="Skills" className="relative h-[500vh] w-screen" ref={ref}>
       <div className="mt-[25vh]"></div>
       <div className="sticky top-0 flex h-screen w-full flex-col items-center justify-center gap-16">
-        <h1 className="text-center text-5xl text-[var(--sub-text-color)]">
+        <h1 className="text-center mx-3 text-3xl lg:text-5xl text-[var(--sub-text-color)]">
           Here are some of my{" "}
           <span className="text-[var(--main-color)]">skills</span>
         </h1>

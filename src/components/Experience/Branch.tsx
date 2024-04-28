@@ -36,7 +36,7 @@ export const Branch: React.FC<BranchProps> = ({
   return (
     <div className="relative flex flex-col items-center">
       <motion.div
-        className="absolute z-20 size-5 translate-y-[-50%] rounded-full bg-[var(--sub-alt-color)]"
+        className="absolute -z-10 size-5 translate-y-[-50%] rounded-full bg-[var(--sub-alt-color)]"
         style={{
           filter,
           backgroundColor,
