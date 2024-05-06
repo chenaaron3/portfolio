@@ -15,6 +15,7 @@ import Syft from "../../../public/images/projects/syft.jpg";
 import { Description } from "./Description";
 import { calcOffset } from "~/utils/animation";
 import { act } from "react-dom/test-utils";
+import { useMediaQuery } from "react-responsive";
 
 export interface ProjectDetails {
   name: string;
@@ -58,12 +59,15 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
   const [activeProject, setActiveProject] = useState(0);
-  const width = useTransform(() => {
+  const progress = useTransform(() => {
     const offset = offsets[activeProject]!;
-    const latest = scrollYProgress.get()
-    const newWidth = `${(((latest - offset.offset) / offset.margin) * 75 + 25).toFixed(2)}%`
-    return newWidth
-  })
+    const latest = scrollYProgress.get();
+    return `${(((latest - offset.offset) / offset.margin) * 75 + 25).toFixed(2)}%`;
+  });
+
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     projects.forEach((_, i) => {
@@ -86,13 +90,16 @@ export default function Projects() {
             {projects.map((_, i) => (
               <div
                 key={`project-divider-${i}`}
-                className="min-h-1 flex-1 rounded-full bg-[var(--sub-alt-color)] lg:min-w-1"
+                className="min-h-1 flex-1 rounded-full bg-[var(--sub-alt-color)] lg:min-w-1 flex justify-center items-center"
               >
                 {activeProject == i && (
                   <motion.div
                     layoutId="projecttab"
-                    className="m-auto h-full rounded-full bg-[var(--main-color)]"
-                    style={{ width: width }}
+                    className="h-full lg:w-full rounded-full bg-[var(--main-color)]"
+                    style={{
+                      width: isDesktop ? "" : progress,
+                      height: isDesktop ? progress : "",
+                    }}
                   />
                 )}
               </div>
