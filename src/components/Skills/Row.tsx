@@ -1,4 +1,4 @@
-import { useTransform, type MotionValue, motion } from "framer-motion";
+import { useTransform, type MotionValue, motion, useMotionValue, useMotionValueEvent } from "framer-motion";
 import { type SkillDetails } from ".";
 import { Skill } from "./Skill";
 import { useEffect, useState } from "react";
@@ -21,11 +21,14 @@ export const Row: React.FC<RowProps> = ({
     query: "(min-width: 1024px)",
   });
 
-  const translateX = useTransform(() => {
-    const scroll = scrollState.get()
+  const [translateX, setTranslateX] = useState("0%")
+  useMotionValueEvent(scrollState, "change", (latest) => {
     const width = isDesktop ? 30 : 70
-    return (reverse ? "" : "-") + (scroll * skills.length * width) + "%"
+    const progress = (reverse ? "" : "-") + (latest * skills.length * width) + "%"
+    console.log(progress)
+    setTranslateX(progress)
   });
+
   const [details, setDetails] = useState<SkillDetails[]>([]);
 
   useEffect(() => {
@@ -38,12 +41,12 @@ export const Row: React.FC<RowProps> = ({
     <div className="mx-auto w-full lg:w-2/3 overflow-hidden bg-gradient-to-r from-transparent via-[var(--bg-color)] p-2">
       <motion.div
         layout
-        className="relative flex items-center"
+        className="relative flex items-center justify-start"
         style={{
           flexDirection: reverse ? "row-reverse" : "row",
           translateX,
         }} 
-      >
+      >      
         <div className="min-w-[25vw] h-1"></div>
         <span className="text-center text-2xl lg:text-4xl text-[var(--text-color)]">
           {title}
