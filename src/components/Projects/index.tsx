@@ -1,6 +1,7 @@
 import {
   AnimatePresence,
   motion,
+  useMotionValue,
   useMotionValueEvent,
   useScroll,
   useTransform,
@@ -13,6 +14,7 @@ import Stocks from "../../../public/images/projects/stocks.jpg";
 import Syft from "../../../public/images/projects/syft.jpg";
 import { Description } from "./Description";
 import { calcOffset } from "~/utils/animation";
+import { act } from "react-dom/test-utils";
 
 export interface ProjectDetails {
   name: string;
@@ -56,6 +58,12 @@ export default function Projects() {
     offset: ["start start", "end end"],
   });
   const [activeProject, setActiveProject] = useState(0);
+  const width = useTransform(() => {
+    const offset = offsets[activeProject]!;
+    const latest = scrollYProgress.get()
+    const newWidth = `${(((latest - offset.offset) / offset.margin) * 75 + 25).toFixed(2)}%`
+    return newWidth
+  })
 
   useMotionValueEvent(scrollYProgress, "change", (latest) => {
     projects.forEach((_, i) => {
@@ -74,16 +82,17 @@ export default function Projects() {
           <span className="text-[var(--main-color)]">projects</span>
         </h1>
         <div className="m-auto flex h-full w-full flex-col lg:h-[40vh] lg:flex-row">
-          <div className="flex w-full h-1 lg:h-full lg:w-1 flex-row lg:flex-col gap-3 lg:pl-5 mt-10 lg:mt-0">
+          <div className="mt-10 flex h-1 w-full flex-row gap-3 lg:mt-0 lg:h-full lg:w-1 lg:flex-col lg:pl-5">
             {projects.map((_, i) => (
               <div
                 key={`project-divider-${i}`}
-                className="min-h-1 lg:min-w-1 flex-1 rounded-full bg-[var(--sub-alt-color)]"
+                className="min-h-1 flex-1 rounded-full bg-[var(--sub-alt-color)] lg:min-w-1"
               >
                 {activeProject == i && (
                   <motion.div
                     layoutId="projecttab"
-                    className="h-full w-full rounded-full bg-[var(--main-color)]"
+                    className="m-auto h-full rounded-full bg-[var(--main-color)]"
+                    style={{ width: width }}
                   />
                 )}
               </div>

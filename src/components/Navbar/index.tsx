@@ -8,7 +8,18 @@ import {
   useMotionValueEvent,
 } from "framer-motion";
 import { COVER_DELAY } from "~/utils/constants";
-import { useScrollStore } from "~/store";
+import { useMediaQuery } from "react-responsive";
+import Hamburger from "hamburger-react";
+
+const menuVariants: Variants = {
+  visible: {
+    opacity: 1,
+    transition: {
+      staggerChildren: 0.15,
+    },
+  },
+  hidden: {},
+}
 
 const listVariants: Variants = {
   visible: {
@@ -81,6 +92,11 @@ const containerVariants: Variants = {
 export default function Navbar() {
   const controls = useAnimationControls();
   const { scrollY } = useScroll();
+  const [isOpen, setOpen] = useState(false);
+
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
   useEffect(() => {
     void controls.start("initial", {
@@ -89,6 +105,9 @@ export default function Navbar() {
   }, [controls]);
 
   useMotionValueEvent(scrollY, "change", (latest) => {
+    // Close menu on scroll
+    setOpen(false)
+
     // If scroll down
     if (scrollY.getVelocity() > 0) {
       void controls.start("hidden");
@@ -114,8 +133,7 @@ export default function Navbar() {
       layout
     >
       <motion.svg
-        width="200"
-        height="100"
+        height="100%"
         viewBox="0 0 200 100"
         xmlns="http://www.w3.org/2000/svg"
         className="relative scale-50"
@@ -146,21 +164,42 @@ export default function Navbar() {
           />
         </g>
       </motion.svg>
-      <motion.ol
-        className="mr-32 flex w-[40vw] list-decimal justify-between text-xl text-[var(--main-color)]"
-        initial="hidden"
-        animate="visible"
-        variants={listVariants}
-        transition={{
-          delay: COVER_DELAY,
-        }}
-      >
-        <NavItem name="About" />
-        <NavItem name="Skills" />
-        <NavItem name="Experience" />
-        <NavItem name="Projects" />
-        <NavItem name="Contact" />
-      </motion.ol>
+      {isDesktop && (
+        <motion.ol
+          className="mr-32 flex w-[40vw] list-decimal justify-between text-xl text-[var(--main-color)]"
+          initial="hidden"
+          animate="visible"
+          variants={listVariants}
+          transition={{
+            delay: COVER_DELAY,
+          }}
+        >
+          <NavItem name="About" />
+          <NavItem name="Skills" />
+          <NavItem name="Experience" />
+          <NavItem name="Projects" />
+          <NavItem name="Contact" />
+        </motion.ol>
+      )}
+      {!isDesktop && (
+        <div className="mr-8">
+          <Hamburger toggled={isOpen} toggle={setOpen} />
+          {isOpen && (
+            <motion.ol
+              className="fixed inset-0 top-[10vh] z-50 h-fit w-screen bg-[var(--sub-color)] flex flex-col gap-3 p-3 text-xl justify-center items-center"
+              initial="hidden"
+              animate="visible"
+              variants={menuVariants}
+            >
+              <NavItem name="About" />
+              <NavItem name="Skills" />
+              <NavItem name="Experience" />
+              <NavItem name="Projects" />
+              <NavItem name="Contact" />
+            </motion.ol>
+          )}
+        </div>
+      )}
     </motion.div>
   );
 }

@@ -22,7 +22,7 @@ export const Key: React.FC<KeyProps> = ({ character, forcePress, bouncy }) => {
       left: 0,
       top: 0,
       color: "var(--text-color)",
-      filter: "none",
+      filter: "drop-shadow(0px 0px 0px var(--main-color))",
       scale: 1,
     },
     hide: {
@@ -47,9 +47,9 @@ export const Key: React.FC<KeyProps> = ({ character, forcePress, bouncy }) => {
       ${bouncy ? "animate-bounce hover:animate-none" : ""}
       ${forcePress ? "animate-none" : ""}`}
     >
-      <div className="absolute left-1 top-2 h-10 w-10 rounded-xl bg-[var(--bg-color)]"></div>
+      <div className="absolute left-1 top-2 border h-10 w-10 rounded-xl bg-[var(--bg-color)]"></div>
       <motion.div
-        className="relative z-10 flex h-10 w-10 items-center justify-center rounded-xl border bg-[var(--sub-color)] text-[var(--text-color)]"
+        className="relative z-10 flex h-10 w-10 items-center justify-center border rounded-xl bg-[var(--sub-color)] text-[var(--text-color)]"
         initial="hide"
         variants={variants}
         animate={controls}
@@ -71,7 +71,7 @@ export const Key: React.FC<KeyProps> = ({ character, forcePress, bouncy }) => {
         exit={"hide"}
         layout
       >
-        <span className="z-10 text-lg font-bold">{character}</span>
+        <span className="z-10 text-base lg:text-lg font-bold">{character}</span>
       </motion.div>
     </div>
   );

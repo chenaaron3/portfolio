@@ -73,7 +73,7 @@ export default function Experience() {
               startDate: new Date("06/01/2021"),
               endDate: new Date("12/01/2021"),
               details: [
-                "Designed and implemented Python scripts for testing satellite database commands, ensuring data integrity and system reliability for mission critical software.",
+                "Implemented Python scripts for testing satellite database commands, ensuring system reliability.",
               ],
             }}
           />
@@ -87,7 +87,7 @@ export default function Experience() {
               position: "Full Stack Software Engineer",
               startDate: new Date("03/01/2022"),
               details: [
-                "Designed a cloud service to identify malicious files in customer data centers, enabling scanning of one million systems per month.",
+                "Designed a cloud service to identify malicious files in customer data centers.",
               ],
             }}
           />

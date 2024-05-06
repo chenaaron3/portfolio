@@ -2,6 +2,7 @@ import { useTransform, type MotionValue, motion } from "framer-motion";
 import { type SkillDetails } from ".";
 import { Skill } from "./Skill";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "react-responsive";
 
 interface RowProps {
   scrollState: MotionValue<number>;
@@ -16,9 +17,15 @@ export const Row: React.FC<RowProps> = ({
   title,
   skills,
 }) => {
-  const translateRange = reverse ? ["-150%", "150%"] : ["150%", "-150%"];
-  const translateX = useTransform(scrollState, [0, 1], translateRange);
+  const isDesktop = useMediaQuery({
+    query: "(min-width: 1024px)",
+  });
 
+  const translateX = useTransform(() => {
+    const scroll = scrollState.get()
+    const width = isDesktop ? 30 : 70
+    return (reverse ? "" : "-") + (scroll * skills.length * width) + "%"
+  });
   const [details, setDetails] = useState<SkillDetails[]>([]);
 
   useEffect(() => {
@@ -28,15 +35,17 @@ export const Row: React.FC<RowProps> = ({
   }, [skills]);
 
   return (
-    <div
-      className="mx-auto w-2/3 overflow-hidden bg-gradient-to-r from-transparent via-[var(--bg-color)] p-2
-    "
-    >
+    <div className="mx-auto w-full lg:w-2/3 overflow-hidden bg-gradient-to-r from-transparent via-[var(--bg-color)] p-2">
       <motion.div
-        className="relative flex items-center justify-center"
-        style={{ translateX, flexDirection: reverse ? "row-reverse" : "row" }}
+        layout
+        className="relative flex items-center"
+        style={{
+          flexDirection: reverse ? "row-reverse" : "row",
+          translateX,
+        }} 
       >
-        <span className="text-center text-4xl text-[var(--text-color)]">
+        <div className="min-w-[25vw] h-1"></div>
+        <span className="text-center text-2xl lg:text-4xl text-[var(--text-color)]">
           {title}
         </span>
         <span className="m-7" />

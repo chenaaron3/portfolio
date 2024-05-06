@@ -9,7 +9,10 @@ interface SkillProps {
 
 export const Skill: React.FC<SkillProps> = ({ details }) => {
   return (
-    <div className="m-5 flex h-[10vh] min-w-[40vw] flex-col items-center justify-center rounded-xl bg-[var(--sub-alt-color)] shadow-lg lg:h-[15vh] lg:min-w-[15vw]">
+    <motion.div
+      layout
+      className="m-5 flex h-[10vh] min-w-[40vw] flex-col items-center justify-center rounded-xl bg-[var(--sub-alt-color)] shadow-lg lg:h-[15vh] lg:min-w-[15vw]"
+    >
       <div className="absolute top-0 size-8 lg:size-12">
         <Image
           layout="fill"
@@ -18,11 +21,11 @@ export const Skill: React.FC<SkillProps> = ({ details }) => {
           src={details.image}
         />
       </div>
-      <div className="mt-2 text-xl lg:text-4xl text-[var(--text-color)]">
+      <div className="mt-2 text-xl text-[var(--text-color)] lg:text-4xl">
         {details.name}
       </div>
       <Proficiency proficiency={details.proficiency} />
-    </div>
+    </motion.div>
   );
 };
 
@@ -54,7 +57,7 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
       <AnimatePresence>
         {hover && (
           <motion.span
-            className="absolute w-full text-sm text-center text-[var(--text-color)]"
+            className="absolute w-full text-center text-sm text-[var(--text-color)]"
             animate={{ y: -10, opacity: 1 }}
             exit={{ y: 0, opacity: 0 }}
           >
@@ -64,7 +67,7 @@ const Proficiency: React.FC<ProficiencyProps> = ({ proficiency }) => {
       </AnimatePresence>
       <AnimatePresence>
         {!hover && (
-          <div className="w-1/2 lg:w-1/3 m-auto flex gap-2">
+          <div className="m-auto flex w-1/2 gap-2 lg:w-1/3">
             {Array.from({ length: prof }).map((_, i) => {
               return (
                 <motion.div

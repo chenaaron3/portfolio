@@ -45,7 +45,7 @@ export default function About() {
       <AnimatePresence>
         {scrollState > 0 && (
           <motion.div
-            className="sticky top-[15vh] flex h-[80vh] w-5/6 flex-col rounded-xl bg-[var(--sub-alt-color)] lg:top-[calc(50vh_-_30vh)] lg:h-[60vh] lg:w-[50vw]"
+            className="sticky top-[15vh] flex h-[70vh] w-5/6 flex-col rounded-xl bg-[var(--sub-alt-color)] lg:top-[calc(50vh_-_30vh)] lg:h-[60vh] lg:w-[50vw]"
             initial={{ translateY: "10px", opacity: 0.75 }}
             animate={{ translateY: 0, opacity: 1 }}
           >
@@ -62,7 +62,7 @@ export default function About() {
                 <Power scrollState={power} />
               </motion.div>
             </div>
-            <div className="flex flex-1 flex-col p-5 lg:gap-3 lg:p-7 text-[var(--text-color)] lg:text-3xl overflow-scroll">
+            <div className="flex flex-1 flex-col p-5 lg:gap-3 lg:p-7 text-lg text-[var(--text-color)] lg:text-3xl overflow-auto">
               {scrollState < AboutKeyframes.pictureFadeIn && (
                 <>
                   <Line

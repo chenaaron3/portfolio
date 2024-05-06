@@ -140,13 +140,13 @@ export default function Hero() {
           Hi there! My name is
         </motion.div>
         <motion.div
-          className="relative text-4xl text-[var(--sub-text-color)] lg:text-7xl"
+          className="relative text-5xl text-[var(--sub-text-color)] lg:text-7xl"
           variants={textVariants}
         >
           Aaron Chen.
         </motion.div>
         <motion.div
-          className="relative text-center text-3xl text-[var(--text-color)] lg:text-5xl"
+          className="relative text-center text-4xl text-[var(--text-color)] lg:text-5xl"
           variants={textVariants}
         >
           I build things on computers.

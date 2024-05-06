@@ -5,7 +5,7 @@ import {
   AnimatePresence,
   useMotionValueEvent,
 } from "framer-motion";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { calcOffset } from "~/utils/animation";
 import { type ExperienceDetails } from ".";
 import { formatDate } from "~/utils/date";
@@ -142,7 +142,7 @@ export const SlantBar: React.FC<SlantBarProps> = ({
               }}
               layout
             >
-              <h1 className="text-xl lg:text-3xl text-[var(--sub-text-color)]">
+              <h1 className="text-xl text-[var(--sub-text-color)] lg:text-3xl">
                 {experience.position}
               </h1>
               <h1 className="text-[var(--main-color)]">
@@ -153,9 +153,9 @@ export const SlantBar: React.FC<SlantBarProps> = ({
                 {formatDate(experience.endDate)}
               </div>
               <ul>
-                {experience.details.map((line, i) => (
+                {isDesktop && experience.details.map((line, i) => (
                   <li
-                    className="list-inside list-disc"
+                    className="list-inside list-none lg:list-disc"
                     key={`experience-${experience.location}-${i}`}
                   >
                     {line}
